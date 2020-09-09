@@ -1,0 +1,41 @@
+#!/bin/sh
+
+cd "$HOME"
+
+system_name=$(uname -s)
+
+echo "Setting up Git"
+echo "Enter the name to use for git author:"
+read git_name
+echo "Enter the email to use for git author:"
+read git_email
+
+git config --global user.name "${git_name}"
+git config --global user.email "${git_email}"
+
+case "${system_name}" in
+  Linux)
+    echo "you're using Linux"
+    ;;
+
+  Darwin)
+    echo "you're using Mac"
+
+    [[ command -v brew > /dev/null 2>&1 ]] ||
+      echo "Installing Homebrew.  Beer memes commencing..."
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+      echo "Installing default brew bundle"
+      brew bundle --file=~/.config/yadm/brewfile
+    ;;
+
+  *)
+    echo "you're using an unsupported operating system"
+    exit 1
+    ;;
+
+esac
+
+echo "Adding origin URL to git remote"
+yadm remote set-url origin "https://github.com/TimSpence/dotfiles.git"
+
