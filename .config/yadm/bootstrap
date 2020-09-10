@@ -17,7 +17,7 @@ if [[ ! -f "${HOME}/.ssh/config" ]]; then
     cat << EOF > "${HOME}/.ssh/config"
 Host *
   AddKeysToAgent yes
-  UseKeychain yes
+  # UseKeychain yes
   IdentityFile ~/.ssh/id_rsa
 EOF
 fi
