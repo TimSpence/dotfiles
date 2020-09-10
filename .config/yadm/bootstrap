@@ -46,6 +46,11 @@ system_name=$(uname -s)
 case $system_name in
     Linux)
         echo "you're using Linux"
+
+	if [[ -f ${HOME}/.config/aptfile ]]; then
+	  echo "Installing apt packages from aptfile"
+          sudo apt update && sudo apt install -y $(cat ${HOME}/.config/aptfile | tr "\n" " ")
+	fi
         ;;
 
     Darwin)
