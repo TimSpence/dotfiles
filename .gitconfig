@@ -1,0 +1,10 @@
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset%C(auto)%d %<|(88,mtrunc)%s %C(bold blue)%an %<(13,trunc)%C(bold black)%cr%Creset'
+	lga = log --graph --pretty=format:'%Cred%h%Creset%C(auto)%d %<|(88,mtrunc)%s %C(bold blue)%an %<(13,trunc)%C(bold black)%cr%Creset' --all
+[user]
+	email = yogi.wan.kenobi@gmail.com
+	name = TimSpence
