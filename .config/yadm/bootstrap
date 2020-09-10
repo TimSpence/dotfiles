@@ -1,8 +1,34 @@
-#!/bin/sh
+#!/bin/bash
 
 cd "$HOME"
 
-system_name=$(uname -s)
+echo "Setting up SSH client"
+if [[ ! -d "${HOME}/.ssh" ]]; then
+    mkdir -p $HOME/.ssh
+fi
+
+if [[ ! -f "${HOME}/.ssh/id_rsa" ]]; then
+    ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)"
+fi
+
+eval "$(ssh-agent -s)"
+
+if [[ ! -f "${HOME}/.ssh/config" ]]; then
+    cat << EOF > "${HOME}/.ssh/config"
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
+EOF
+fi
+
+ssh-add ${HOME}/.ssh/id_rsa
+
+echo "**********************************"
+echo "This is your new public key:"
+ssh-add -L
+echo "**********************************"
+
 
 echo "Setting up Git"
 echo "Enter the name to use for git author:"
@@ -13,27 +39,28 @@ read git_email
 git config --global user.name "${git_name}"
 git config --global user.email "${git_email}"
 
-case "${system_name}" in
-  Linux)
-    echo "you're using Linux"
-    ;;
+system_name=$(uname -s)
+case $system_name in
+    Linux)
+        echo "you're using Linux"
+        ;;
 
-  Darwin)
-    echo "you're using Mac"
+    Darwin)
+        echo "you're using Mac"
 
-    if [[ ! command -v brew >/dev/null 2>&1 ]]; then
-      echo "Installing Homebrew.  Beer memes commencing..."
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    fi
+        if ! command -v brew > /dev/null 2>&1 ; then
+            echo "Installing Homebrew.  Beer memes commencing..."
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        fi
 
-    echo "Installing default brew bundle"
-    brew bundle --file=~/.config/yadm/brewfile
-    ;;
+        echo "Installing default brew bundle"
+        brew bundle --file=~/.config/yadm/brewfile
+        ;;
 
-  *)
-    echo "you're using an unsupported operating system"
-    exit 1
-    ;;
+    *)
+        echo "you're using an unsupported operating system"
+        exit 1
+        ;;
 
 esac
 
