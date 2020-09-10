@@ -21,12 +21,13 @@ case "${system_name}" in
   Darwin)
     echo "you're using Mac"
 
-    [[ command -v brew > /dev/null 2>&1 ]] ||
+    if [[ ! command -v brew >/dev/null 2>&1 ]]; then
       echo "Installing Homebrew.  Beer memes commencing..."
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
 
-      echo "Installing default brew bundle"
-      brew bundle --file=~/.config/yadm/brewfile
+    echo "Installing default brew bundle"
+    brew bundle --file=~/.config/yadm/brewfile
     ;;
 
   *)
