@@ -8,6 +8,10 @@ SAVEHIST=10000
 setopt appendhistory
 setopt hist_ignore_dups
 
+# bindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # zplug
 # https://github.com/zplug/zplug
 if [ -d ~/.zplug ]; then
@@ -16,8 +20,12 @@ if [ -d ~/.zplug ]; then
   zplug "mafredi/zsh-async", from:github, use:async.zsh
   zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
+  zplug "zsh-users/zsh-autosuggestions"
   zplug "zsh-users/zsh-completions"
+
+  # these have to be at end of .zshrc, and in this order
   zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  zplug "zsh-users/zsh-history-substring-search"
 
   zplug load # --verbose
 fi
