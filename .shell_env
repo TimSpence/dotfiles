@@ -1,6 +1,7 @@
 # Editor
 export EDITOR=vi
 export GIT_EDITOR="$EDITOR"
+export ZPLUG_HOME="$HOME/.zplug"
 
 # Consistent ownership
 umask 022
