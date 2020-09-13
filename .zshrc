@@ -19,6 +19,7 @@ if [ -d ~/.zplug ]; then
 
   zplug "mafredi/zsh-async", from:github, use:async.zsh
   zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+  zplug "zlsun/solarized-man"
   zplug "joel-porquet/zsh-dircolors-solarized"
 
   zplug "zsh-users/zsh-autosuggestions"
