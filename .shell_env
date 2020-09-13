@@ -1,0 +1,7 @@
+# Editor
+export EDITOR=vi
+export GIT_EDITOR="$EDITOR"
+
+# Consistent ownership
+umask 022
+
