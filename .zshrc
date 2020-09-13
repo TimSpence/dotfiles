@@ -13,8 +13,10 @@ setopt hist_ignore_dups
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
 
-  zplug "mafredi/zsh-async", from:github
+  zplug "mafredi/zsh-async", from:github, use:async.zsh
   zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
   zplug load # --verbose
 fi
