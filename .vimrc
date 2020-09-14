@@ -35,6 +35,8 @@ call plug#begin(vimplugdir)
   " popular color scheme
   Plug 'morhetz/gruvbox'
 
+  Plug 'preservim/nerdtree'
+
 call plug#end()
 
 " editor settings
@@ -56,3 +58,10 @@ colorscheme gruvbox
 " save some lists to toggle through
 let nowcolors='breeze earth aqua gothic'
 let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
+
+" use a better leader key
+let mapleader=","
+
+" start nerdtree
+autocmd VimEnter * NERDTree
+nnoremap <Leader>n :NERDTreeToggle<CR>
