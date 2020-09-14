@@ -26,6 +26,9 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
 
+  " color schemes
+  Plug 'flazz/vim-colorschemes'
+
 call plug#end()
 
 " editor settings
@@ -40,3 +43,10 @@ set directory=~/.vim/tmp/swap/     " swap directory
 set backupdir=~/.vim/tmp/backup/
 set backup
 set writebackup
+
+" colors
+set t_Co=256
+colorscheme papercolor
+" save some lists to toggle through
+let nowcolors='breeze earth aqua gothic'
+let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
