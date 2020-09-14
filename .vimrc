@@ -29,6 +29,12 @@ call plug#begin(vimplugdir)
   " color schemes
   Plug 'flazz/vim-colorschemes'
 
+  " nice colors, a little buggy though
+  Plug 'kyoz/purify', { 'rtp': 'vim' }
+
+  " popular color scheme
+  Plug 'morhetz/gruvbox'
+
 call plug#end()
 
 " editor settings
@@ -46,7 +52,7 @@ set writebackup
 
 " colors
 set t_Co=256
-colorscheme papercolor
+colorscheme gruvbox
 " save some lists to toggle through
 let nowcolors='breeze earth aqua gothic'
 let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
