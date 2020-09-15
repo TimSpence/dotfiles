@@ -1,6 +1,60 @@
 #!/bin/bash
 
+truecolor_check() {
+    awk 'BEGIN{
+    s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+    for (colnum = 0; colnum<77; colnum++) {
+        r = 255-(colnum*255/76);
+        g = (colnum*510/76);
+        b = (colnum*255/76);
+        if (g>255) g = 510-g;
+            printf "\033[48;2;%d;%d;%dm", r,g,b;
+            printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+            printf "%s\033[0m", substr(s,colnum+1,1);
+        }
+    printf "\n";
+    }'
+}
+
+check_all_the_things() {
+    # https://gist.github.com/XVilka/8346728#gistcomment-3191656
+    echo -ne \\e\[1\;3\;4:3\;5\;53\;38\;2\;255\;127\;0\;58\;2\;0\;48\;255\;48\;2\;255\;0\;{0..255..8}mX \\e\[0m\\n
+}
+
+is_linux() {
+  [[ $(uname) == 'Linux' ]];
+}
+
+is_osx() {
+  [[ $(uname) == 'Darwin' ]];
+}
+
 cd "$HOME"
+
+if [ ! -d git-clones ]; then
+    mkdir -p git-clones
+fi
+
+if is_osx; then
+    if [ ! -d $HOME/git-clones/fonts ]; then
+        echo Installing Powerline fonts
+        cd git-clones
+        git clone https://github.com/powerline/fonts.git --depth=1
+        cd fonts
+        sh -x ./install.sh
+        cd $HOME
+    fi
+fi
+
+echo "Switching shell to zsh"
+if which zsh; then
+    chsh -s $(which zsh)
+fi
+
+echo "Checking for truecolor support"
+echo "Your terminal will render a rainbow if supported"
+truecolor_check
+
 
 echo "Initializing submodules"
 yadm submodule update --recursive --init

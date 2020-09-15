@@ -1,4 +1,5 @@
 " directory management
+"
 let vimplugdir='~/.vim/plugged'
 let vimautoloaddir='~/.vim/autoload'
 
@@ -25,6 +26,10 @@ filetype plugin indent off
 call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
+
+  " Make status bar easy on the eyes
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 
   " color schemes
   Plug 'flazz/vim-colorschemes'
@@ -64,6 +69,9 @@ set backup
 set writebackup
 
 " colors
+if (has("termguicolors"))
+    set termguicolors
+endif
 set t_Co=256
 colorscheme gruvbox
 " save some lists to toggle through
@@ -73,6 +81,19 @@ colorscheme gruvbox
 " use a better leader key
 let mapleader=","
 
-" start nerdtree
-autocmd VimEnter * NERDTree
+" Use airline instead of powerline
+let g:airline_theme='gruvbox'
+let g:airline_powerline_fonts=1
+if !exists("g:airline_symbols")
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+" let g:airline_extensions=['tabline']           " uncomment to only load specific extensions
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline#extensions#tabline#show_buffers=1
+
+" start nerdtree open if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <Leader>n :NERDTreeToggle<CR>
