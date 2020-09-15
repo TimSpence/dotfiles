@@ -39,9 +39,20 @@ call plug#begin(vimplugdir)
 
 call plug#end()
 
+" start with dark bg
+set background=dark
+
 " editor settings
 set list                           " mark unprintable characters in insert mode
 set number                         " number lines
+set cursorline                     " it's nice
+
+" format settings
+set nowrap                         " disable auto wrap of long lines
+set expandtab                      " if saved, expands tabs to spaces
+set tabstop=4
+set shiftwidth=4                   " use 4 spaces for auto indenting
+set shiftround
 
 " backup/undo/history
 set undolevels=100                 " undo last 100
@@ -56,8 +67,8 @@ set writebackup
 set t_Co=256
 colorscheme gruvbox
 " save some lists to toggle through
-let nowcolors='breeze earth aqua gothic'
-let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
+" let nowcolors='breeze earth aqua gothic'
+" let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
 
 " use a better leader key
 let mapleader=","
