@@ -64,10 +64,6 @@ case $system_name in
         echo "Installing default brew bundle"
         brew bundle --file=~/.config/yadm/brewfile
 
-	if [ ! -d ${HOME}/.zplug ]; then
-            git clone https://github.com/zplug/zplug ${HOME}/.zplug
-	fi
-
         ;;
 
     *)
@@ -76,6 +72,10 @@ case $system_name in
         ;;
 
 esac
+
+if [ ! -d ${HOME}/.zplug ]; then
+   git clone https://github.com/zplug/zplug ${HOME}/.zplug
+fi
 
 echo "Adding origin URL to git remote"
 yadm remote set-url origin "https://github.com/TimSpence/dotfiles.git"
