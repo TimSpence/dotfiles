@@ -31,6 +31,9 @@ call plug#begin(vimplugdir)
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
+  " Aesthetic writing experience
+  Plug 'junegunn/goyo.vim'
+
   " color schemes
   Plug 'flazz/vim-colorschemes'
 
@@ -79,7 +82,7 @@ colorscheme gruvbox
 " let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
 
 " use a better leader key
-let mapleader=","
+let mapleader=" "
 
 " Use airline instead of powerline
 let g:airline_theme='gruvbox'
@@ -97,3 +100,8 @@ let g:airline#extensions#tabline#show_buffers=1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <Leader>n :NERDTreeToggle<CR>
+map <Leader>h :bprevious<CR>
+map <Leader>l :bnext<CR>
+
+" automagically reload .vimrc
+autocmd bufwritepost .vimrc source $MYVIMRC
