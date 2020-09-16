@@ -1,6 +1,7 @@
 #!/bin/bash
 
 truecolor_check() {
+    echo "Checking for truecolor support"
     awk 'BEGIN{
     s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
     for (colnum = 0; colnum<77; colnum++) {
@@ -14,6 +15,7 @@ truecolor_check() {
         }
     printf "\n";
     }'
+    echo "You will see a rainbow if your terminal supports TrueColor"
 }
 
 check_all_the_things() {
@@ -22,121 +24,210 @@ check_all_the_things() {
 }
 
 is_linux() {
-  [[ $(uname) == 'Linux' ]];
+  [[ $(uname -s) == 'Linux' ]];
 }
 
 is_osx() {
-  [[ $(uname) == 'Darwin' ]];
+  [[ $(uname -s) == 'Darwin' ]];
 }
 
-cd "$HOME"
+usage() {
+    cat <<-EOF
+  Usage: $0 [OPTION]...
+  Bootstraps dotfiles used by yadm.
+  Use --minimal to apply the minimum (i.e., usability).
 
-if [ ! -d git-clones ]; then
-    mkdir -p git-clones
-fi
+  This operation is intended to by idempotent.
 
-if is_osx; then
-    if [ ! -d $HOME/git-clones/fonts ]; then
-        echo Installing Powerline fonts
-        cd git-clones
-        git clone https://github.com/powerline/fonts.git --depth=1
-        cd fonts
-        sh -x ./install.sh
-        cd $HOME
+  Required arguments:
+    One of:
+      --minimal          install packages, configure zsh,
+                           set yadm git origin, install
+                           fonts (OS X only)
+      --all              install all the things.  Equivalent
+                           to --minimal --git --keys
+
+  Optional arguments:
+    Any of:
+      --git              configure git author info
+      --keys             generate SSH key
+      --help             print this message and exit
+EOF
+}
+
+set_shell() {
+    if which zsh; then
+        current_shell="$(echo $SHELL)"
+        if [[ "$current_shell" =~ 'zsh' ]]; then
+            echo "Switching shell to zsh"
+#            chsh -s $(which zsh)
+        fi
     fi
-fi
+}
 
-echo "Switching shell to zsh"
-if which zsh; then
-    chsh -s $(which zsh)
-fi
+configure_yadm() {
+    echo "Initializing submodules"
+    yadm submodule update --recursive
 
-echo "Checking for truecolor support"
-echo "Your terminal will render a rainbow if supported"
-truecolor_check
+    echo "Adding origin URL to git remote"
+    yadm remote set-url origin "https://github.com/TimSpence/dotfiles.git"
+    yadm remote set-url --push origin "git@github.com:TimSpence/dotfiles.git"
+}
 
+configure_zsh_plugin_manager() {
+    (
+    cd ${HOME}/.zplug
+    if git status -s >/dev/null 2>&1; then
+        git pull
+    else
+        cd ..; git clone https://github.com/zplug/zplug ${HOME}/.zplug
+    fi
+    )
+}
 
-echo "Initializing submodules"
-yadm submodule update --recursive --init
+configure_vim_plugin_manager() {
+    if command -v vim >/dev/null 2>&1; then
+        echo "Bootstraping Vim"
+        vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
+    fi
+}
 
-echo "Setting up SSH client"
-if [[ ! -d "${HOME}/.ssh" ]]; then
-    mkdir -p $HOME/.ssh
-fi
+make_directories() {
+    [ -d ${HOME}/git-clones ] || mkdir -p ${HOME}/git-clones
+    [ -d ${HOME}/zplug ] || mkdir -p ${HOME}/zplug
+    [ -d ${HOME}/.ssh ] || mkdir -p ${HOME}/.ssh
+}
 
-if [[ ! -f "${HOME}/.ssh/id_rsa" ]]; then
-    ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)"
-fi
+configure_git() {
+    echo "Setting up Git"
+    echo "Enter the name to use for git author:"
+    read git_name
+    echo "Enter the email to use for git author:"
+    read git_email
 
-eval "$(ssh-agent -s)"
+    git config --global user.name "${git_name}"
+    git config --global user.email "${git_email}"
+}
 
-if [[ ! -f "${HOME}/.ssh/config" ]]; then
-    cat << EOF > "${HOME}/.ssh/config"
+configure_keys() {
+    if [[ ! -f "${HOME}/.ssh/id_rsa" ]]; then
+        echo "Setting up SSH client"
+        ssh-keygen -t rsa -b 4096 -f "${HOME}/.ssh/id_rsa" -C "$(whoami)@$(hostname)"
+    fi
+    eval "$(ssh-agent -s)"
+    ssh-add ${HOME}/.ssh/id_rsa
+    if [[ ! -f "${HOME}/.ssh/config" ]]; then
+        cat << EOF > "${HOME}/.ssh/config"
 Host *
   AddKeysToAgent yes
-  # UseKeychain yes
   IdentityFile ~/.ssh/id_rsa
 EOF
-fi
+    fi
+}
 
-ssh-add ${HOME}/.ssh/id_rsa
-
-echo "**********************************"
-echo "This is your new public key:"
-ssh-add -L
-echo "**********************************"
-
-
-echo "Setting up Git"
-echo "Enter the name to use for git author:"
-read git_name
-echo "Enter the email to use for git author:"
-read git_email
-
-git config --global user.name "${git_name}"
-git config --global user.email "${git_email}"
-
-system_name=$(uname -s)
-case $system_name in
-    Linux)
-        echo "you're using Linux"
-
-	if [[ -f ${HOME}/.config/aptfile ]]; then
-	  echo "Installing apt packages from aptfile"
-          sudo apt update && sudo apt install -y $(cat ${HOME}/.config/aptfile | tr "\n" " ")
-	fi
-        ;;
-
-    Darwin)
-        echo "you're using Mac"
-
+install_packages() {
+    if is_osx; then
         if ! command -v brew > /dev/null 2>&1 ; then
             echo "Installing Homebrew.  Beer memes commencing..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
-
         echo "Installing default brew bundle"
         brew bundle --file=~/.config/yadm/brewfile
+    elif is_linux; then
+        if [[ -f ${HOME}/.config/aptfile ]]; then
+            echo "Installing apt packages from aptfile"
+            sudo apt update && sudo apt install -y $(cat ${HOME}/.config/aptfile | tr "\n" " ")
+        fi
+    else
+        echo "Don't know how to install packages for this operating system"
+    fi
+}
 
-        ;;
+install_fonts() {
+    if is_osx; then
+        if [ ! -d $HOME/git-clones/fonts ]; then
+            echo "Installing Powerline fonts"
+            git clone https://github.com/powerline/fonts.git --depth=1 $HOME/git-clones/fonts
+            (
+                cd $HOME/git-clones/fonts
+                sh -x ./install.sh
+            )
+        fi
+    elif is_linux; then
+        sudo apt install fonts-powerline
+    else
+        echo "Don't know how to install fonts for this operating system"
+    fi
+}
 
-    *)
-        echo "you're using an unsupported operating system"
+block_root() {
+    if [[ $(whoami) == "root" ]]; then
+        echo "LOL what are you doing?"
         exit 1
-        ;;
+    fi
+}
 
-esac
+do_it () {
+    I=$(( $I + 1 ))
+    echo -e \\x1b[1mRunning step $I: $2 \\x1b[0m
+    $1
+    echo
+}
 
-if [ ! -d ${HOME}/.zplug ]; then
-   git clone https://github.com/zplug/zplug ${HOME}/.zplug
-fi
+configure_minimum() {
+    do_it make_directories "Ensure critical directories exist"
+    do_it set_shell "Set default shell to zsh"
+    do_it truecolor_check "Verify terminal supports TrueColor"
+    do_it configure_yadm "Unlock the full power of YADM"
+    do_it configure_zsh_plugin_manager "Configure ZSH plugin manager"
+    do_it configure_vim_plugin_manager "Configure Vim plugin manager"
+    do_it install_packages "Install packages managed by Apt or Homebrew"
+    do_it install_fonts "Install Powerline fonts for OS X or Ubuntu"
+}
 
-echo "Adding origin URL to git remote"
-yadm remote set-url origin "https://github.com/TimSpence/dotfiles.git"
-yadm remote set-url --push origin "git@github.com:TimSpence/dotfiles.git"
+configure_all_the_things() {
+    configure_minimum
+    configure_git
+    configure_keys
+}
 
-if command -v vim >/dev/null 2>&1; then
-  echo "Bootstraping Vim"
-  vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
-fi
+finish () {
+    echo -e \\x1b[1mDone!\\x1b[0m
+    exit 0
+}
 
+main() {
+    if [[ "$@" =~ "--help" ]]; then
+        usage; exit 0
+    elif [[ "$@" =~ "--all" ]]; then
+        configure_all_the_things
+        finish
+    elif [[ "$@" =~ "--minimal" ]]; then
+        configure_minimum
+        shift
+    else
+        usage; exit 1
+    fi
+
+    for arg in "$@"
+    do
+        case $arg in
+            --git)
+                configure_git
+                shift
+                ;;
+            --keys)
+                configure_keys
+                shift
+                ;;
+            *)
+                usage; exit 1
+                ;;
+        esac
+    done
+    finish
+}
+
+block_root
+I=0
+main "$@"
