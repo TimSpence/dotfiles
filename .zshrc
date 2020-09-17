@@ -17,7 +17,7 @@ bindkey '^[[B' history-substring-search-down
 if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
 
-  zplug "mafredi/zsh-async", from:github, use:async.zsh
+  zplug "mafredi/zsh-async", from:github
   zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
   zplug "zlsun/solarized-man"
   zplug "joel-porquet/zsh-dircolors-solarized"
@@ -34,11 +34,8 @@ fi
 
 # Pure prompt
 # https://github.com/sindresorhus/pure
-if [ -d ~/.zsh/pure ]; then
-  fpath+=$HOME/.zsh/pure
-  autoload -U promptinit; promptinit
-  prompt pure
-
-  # change defaults
-  zstyle :prompt:pure:path color cyan
-fi
+fpath+=$HOME/.zplug/repos/sindresorhus/pure
+autoload -U promptinit; promptinit
+prompt pure
+# change defaults
+zstyle :prompt:pure:path color cyan
