@@ -113,3 +113,8 @@ map <Leader>l :bnext<CR>
 
 " automagically reload .vimrc
 autocmd bufwritepost .vimrc source $MYVIMRC
+
+" load machine-specific config last
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
