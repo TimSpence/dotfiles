@@ -45,6 +45,9 @@ call plug#begin(vimplugdir)
 
   Plug 'preservim/nerdtree'
 
+  " preserve location when reopening
+  Plug 'farmergreg/vim-lastplace'
+
 call plug#end()
 
 " start with dark bg
