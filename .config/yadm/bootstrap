@@ -60,7 +60,7 @@ set_shell() {
         current_shell="$(echo $SHELL)"
         if [[ "$current_shell" =~ 'zsh' ]]; then
             echo "Switching shell to zsh"
-#            chsh -s $(which zsh)
+            chsh -s $(which zsh)
         fi
     fi
 }
@@ -94,7 +94,6 @@ configure_vim_plugin_manager() {
 
 make_directories() {
     [ -d ${HOME}/git-clones ] || mkdir -p ${HOME}/git-clones
-    [ -d ${HOME}/zplug ] || mkdir -p ${HOME}/zplug
     [ -d ${HOME}/.ssh ] || mkdir -p ${HOME}/.ssh
 }
 
