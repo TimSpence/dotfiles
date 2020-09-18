@@ -202,7 +202,7 @@ main() {
         configure_minimum
         shift
     else
-        usage; exit 1
+        configure_minimum
     fi
 
     for arg in "$@"

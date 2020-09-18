@@ -48,7 +48,15 @@ call plug#begin(vimplugdir)
   " preserve location when reopening
   Plug 'farmergreg/vim-lastplace'
 
+  " preview markdown in browser
+  Plug 'PratikBhusal/vim-grip'
+
+  " what is even life without emoji
+  Plug 'junegunn/vim-emoji'
+
 call plug#end()
+
+set completefunc=emoji#complete
 
 " start with dark bg
 set background=dark
