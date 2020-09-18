@@ -18,7 +18,7 @@ if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
 
   zplug "mafredi/zsh-async", from:github
-  zplug "TimSpence/pure", use:pure.zsh, from:github, as:theme, at:d16b94d006ebf2541ad5981abbc7e2ef97d09060
+  zplug "TimSpence/pure", use:pure.zsh, from:github, as:theme, at:3d379f1138af82f41a0a31c12428dd449bafed9c
   zplug "zlsun/solarized-man"
   zplug "joel-porquet/zsh-dircolors-solarized"
 
