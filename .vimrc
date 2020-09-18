@@ -76,7 +76,12 @@ if (has("termguicolors"))
     set termguicolors
 endif
 set t_Co=256
-colorscheme gruvbox
+try
+    colorscheme gruvbox
+catch
+    colorscheme desert
+endtry
+
 " save some lists to toggle through
 " let nowcolors='breeze earth aqua gothic'
 " let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
