@@ -75,14 +75,11 @@ configure_yadm() {
 }
 
 configure_zsh_plugin_manager() {
-    (
-    cd ${HOME}/.zplug
-    if git status -s >/dev/null 2>&1; then
-        git pull
-    else
-        cd ..; git clone https://github.com/zplug/zplug ${HOME}/.zplug
+    if [[ ! -d ${HOME}/.zinit ]]; then
+        mkdir -p ${HOME}/.zinit
+        chmod 700 ${HOME}/.zinit
+        git clone --progress https://github.com/zdharma/zinit.git ${HOME}/.zinit/bin
     fi
-    )
 }
 
 configure_vim_plugin_manager() {
@@ -186,8 +183,8 @@ configure_minimum() {
 
 configure_all_the_things() {
     configure_minimum
-    configure_git
-    configure_keys
+    do_it configure_git "Configure git author info"
+    do_it configure_keys "Configure SSH key pairs"
 }
 
 finish () {

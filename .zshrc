@@ -12,29 +12,28 @@ setopt hist_ignore_dups
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# zplug
-# https://github.com/zplug/zplug
-if [ -d ~/.zplug ]; then
-  source ~/.zplug/init.zsh
+# zinit
+source ~/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-  zplug "mafredi/zsh-async", from:github
-  zplug "TimSpence/pure", use:pure.zsh, from:github, as:theme, at:3d379f1138af82f41a0a31c12428dd449bafed9c
-  zplug "zlsun/solarized-man"
-  zplug "joel-porquet/zsh-dircolors-solarized"
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh' ver'3d379f1138af82f41a0a31c12428dd449bafed9c'
+zinit light TimSpence/pure
 
-  zplug "zsh-users/zsh-autosuggestions"
-  zplug "zsh-users/zsh-completions"
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
 
-  # these have to be at end of .zshrc, and in this order
-  zplug "zsh-users/zsh-syntax-highlighting", defer:2
-  zplug "zsh-users/zsh-history-substring-search"
+zinit light zlsun/solarized-man
 
-  zplug load # --verbose
-fi
+zinit light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-syntax-highlighting
+
+# might want to install this linux only
+#  zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+#  zinit light trapd00r/LS_COLORS
 
 # Pure prompt
-# https://github.com/TimSpence/pure
-fpath+=$HOME/.zplug/repos/TimSpence/pure
+fpath+=$HOME/.zinit/plugins/sindresorhus---pure
 autoload -U promptinit; promptinit
 prompt pure
 # change defaults
