@@ -28,9 +28,11 @@ zinit light zlsun/solarized-man
 zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-syntax-highlighting
 
-# might want to install this linux only
-#  zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
-#  zinit light trapd00r/LS_COLORS
+if ! command -v dircolors >/dev/null 2>&1; then
+ alias dircolors='gdircolors'
+fi
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+zinit light trapd00r/LS_COLORS
 
 # Pure prompt
 fpath+=$HOME/.zinit/plugins/sindresorhus---pure
