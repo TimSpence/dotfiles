@@ -35,7 +35,7 @@ zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" n
 zinit light trapd00r/LS_COLORS
 
 # Pure prompt
-fpath+=$HOME/.zinit/plugins/sindresorhus---pure
+fpath+=$HOME/.zinit/plugins/TimSpence---pure
 autoload -U promptinit; promptinit
 prompt pure
 # change defaults
