@@ -18,7 +18,7 @@ if [ -d ~/.zplug ]; then
   source ~/.zplug/init.zsh
 
   zplug "mafredi/zsh-async", from:github
-  zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+  zplug "TimSpence/pure", use:pure.zsh, from:github, as:theme, at:d16b94d006ebf2541ad5981abbc7e2ef97d09060
   zplug "zlsun/solarized-man"
   zplug "joel-porquet/zsh-dircolors-solarized"
 
@@ -33,8 +33,8 @@ if [ -d ~/.zplug ]; then
 fi
 
 # Pure prompt
-# https://github.com/sindresorhus/pure
-fpath+=$HOME/.zplug/repos/sindresorhus/pure
+# https://github.com/TimSpence/pure
+fpath+=$HOME/.zplug/repos/TimSpence/pure
 autoload -U promptinit; promptinit
 prompt pure
 # change defaults
