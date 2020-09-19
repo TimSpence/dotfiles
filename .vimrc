@@ -57,12 +57,12 @@ call plug#begin(vimplugdir)
   " initialize files from templates
   Plug 'tibabit/vim-templates'
 
+  " control moOde audio
+  Plug 'TimSpence/vim-moode'
+
 call plug#end()
 
 set completefunc=emoji#complete
-
-" start with dark bg
-set background=dark
 
 " editor settings
 set list                           " mark unprintable characters in insert mode
@@ -85,20 +85,25 @@ set backupdir=~/.vim/tmp/backup/
 set backup
 set writebackup
 
-" colors
+" color support
 if (has("termguicolors"))
     set termguicolors
 endif
 set t_Co=256
+
+" colorscheme styling
+set background=dark
+let g:gruvbox_bold=1
+let g:gruvbox_italic=0
+let g:gruvbox_contrast_light='medium'
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_improved_strings=0
+
 try
     colorscheme gruvbox
 catch
     colorscheme desert
 endtry
-
-" save some lists to toggle through
-" let nowcolors='breeze earth aqua gothic'
-" let interestingcolors='simple_dark papercolor inkpot nightshimmer tender zenburn papercolor'
 
 " use a better leader key
 let mapleader=" "
@@ -122,8 +127,9 @@ nnoremap <Leader>n :NERDTreeToggle<CR>
 map <Leader>h :bprevious<CR>
 map <Leader>l :bnext<CR>
 
-" automagically reload .vimrc
-autocmd bufwritepost .vimrc source $MYVIMRC
+" Automagically reload .vimrc
+" Disabled because it crashes on some terminals
+" autocmd bufwritepost .vimrc source $MYVIMRC
 
 " load machine-specific config last
 if filereadable(glob("~/.vimrc.local"))
