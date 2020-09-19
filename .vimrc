@@ -54,6 +54,9 @@ call plug#begin(vimplugdir)
   " what is even life without emoji
   Plug 'junegunn/vim-emoji'
 
+  " initialize files from templates
+  Plug 'tibabit/vim-templates'
+
 call plug#end()
 
 set completefunc=emoji#complete
