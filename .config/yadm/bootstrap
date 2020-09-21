@@ -192,6 +192,14 @@ misc () {
     fi
 }
 
+configure_tmux_plugin_manager () {
+    local plugin_dir=$HOME/.tmux/plugins
+    if [ ! -d $plugin_dir ]; then
+        git clone https://github.com/tmux-plugins/tpm.git $plugin_dir/tpm
+        $plugin_dir/tpm/bin/install_plugins
+    fi
+}
+
 do_it () {
     I=$(( $I + 1 ))
     echo -e \\x1b[1mRunning step $I: $2 \\x1b[0m
@@ -207,6 +215,7 @@ configure_minimum() {
     do_it configure_yadm "Unlock the full power of YADM"
     do_it configure_zsh_plugin_manager "Configure ZSH plugin manager"
     do_it configure_vim_plugin_manager "Configure Vim plugin manager"
+    do_it configure_tmux_plugin_manager "Configure tmux plugin manager"
     do_it install_packages "Install packages managed by Apt or Homebrew"
     do_it install_fonts "Install Powerline fonts for OS X or Ubuntu"
 }
