@@ -85,11 +85,11 @@ set backupdir=~/.vim/tmp/backup/
 set backup
 set writebackup
 
-" color support
-if (has("termguicolors"))
-    set termguicolors
-endif
-set t_Co=256
+"    " color support
+"    if (has("termguicolors"))
+    "    set termguicolors
+"    endif
+"    set t_Co=256
 
 " colorscheme styling
 set background=dark
