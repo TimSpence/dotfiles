@@ -39,3 +39,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #   fi
 
 alias d='docker'
+if command -v htop >/dev/null 2>&1; then
+    alias top='htop'
+fi
