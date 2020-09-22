@@ -56,9 +56,9 @@ EOF
 }
 
 set_shell() {
-    if which zsh; then
-        current_shell="$(echo $SHELL)"
-        if [[ "$current_shell" =~ 'zsh' ]]; then
+    if command -v zsh >/dev/null 2>&1; then
+        current_shell="$SHELL"
+        if [[ ! "${current_shell}" =~ zsh ]]; then
             echo "Switching shell to zsh"
             chsh -s $(which zsh)
         fi
