@@ -2,6 +2,7 @@ fakeroot
 htop
 neofetch
 net-tools
+silversearcher-ag
 sysbench
 sysstat
 zsh
