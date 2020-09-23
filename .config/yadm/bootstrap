@@ -123,8 +123,10 @@ EOF
 
 install_packages() {
     # Install fzf from source to avoid package differences
-    git clone --depth=1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
-    ${HOME}/.fzf/install --all
+    if [[ ! -d ${HOME}/.fzf ]]; then
+        git clone --depth=1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+        ${HOME}/.fzf/install --all
+    fi
 
     if is_osx; then
         if ! command -v brew > /dev/null 2>&1 ; then
@@ -154,6 +156,13 @@ install_packages() {
                 ./package.sh
                 find ../ -type f -name '*.deb' -print | xargs sudo dpkg --install
             )
+        fi
+
+        # Install ripgrep from deb due to issue in mirror
+        # https://bugs.launchpad.net/ubuntu/+source/rust-bat/+bug/1868517
+        if ! command -v rg>/dev/null 2>&1; then
+            curl -L -o /tmp/ripgrep.deb https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+            sudo dpkg -i /tmp/ripgrep.deb && rm /tmp/ripgrep.deb
         fi
     else
         echo "Don't know how to install packages for this operating system"

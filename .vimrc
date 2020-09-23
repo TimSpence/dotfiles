@@ -131,6 +131,10 @@ nnoremap <Leader>n :NERDTreeToggle<CR>
 map <Leader>h :bprevious<CR>
 map <Leader>l :bnext<CR>
 
+" search config
+nnoremap <silent> <leader>o :Files<CR>
+nnoremap <silent> <leader>O :Files!<CR>
+
 " Automagically reload .vimrc
 " Disabled because it crashes on some terminals
 " autocmd bufwritepost .vimrc source $MYVIMRC

@@ -3,9 +3,24 @@ if [ -f ~/.shell_aliases ]; then
 fi
 
 export BAT_PAGER='less -RF'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+FZF_OS_X_EXCLUDE='--exclude Library'
+FD_OPTIONS="--follow --exclude .git ${FZF_OS_X_EXCLUDE}"
+
+export FZF_DEFAULT_OPTS=" \
+    --bind='ctrl-d:half-page-down' \
+    --bind='ctrl-u:half-page-up' \
+    --bind='f2:toggle-preview' \
+    --border \
+    --height 40% \
+    --info=inline \
+    --layout=reverse \
+    --multi \
+    --preview='bat --style=numbers --color=always {} 2>/dev/null | head -300' \
+    --preview-window='right:wrap'
+    "
+export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden ${FD_OPTIONS}"
+export FZF_CTRL_T_COMMAND="fd ${FD_OPTIONS}"
+export FZF_ALT_C_COMMAND="fd --type d ${FD_OPTIONS}"
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.

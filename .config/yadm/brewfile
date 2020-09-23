@@ -19,6 +19,7 @@ brew "nmap"
 brew "node"
 brew "postgresql", restart_service: true
 brew "rbenv"
+brew "ripgrep"
 brew "screen"
 brew "sha2"
 brew "the_silver_searcher"
