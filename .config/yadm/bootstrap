@@ -140,6 +140,13 @@ install_packages() {
             echo "Installing apt packages from aptfile"
             sudo apt update && sudo apt install -y $(cat ${HOME}/.config/aptfile | tr "\n" " ")
         fi
+
+        # The fd binary is named fdfind on Linux.
+        # Symlink if fdfind exists.
+        if command -v fdfind >/dev/null 2>&1; then
+            command -v fd >/dev/null 2>&1 || sudo ln -s $(which fdfind) /usr/bin/fd
+        fi
+
         if [[ -f ${HOME}/.config/snapfile ]]; then
             echo "Installing snap packages from snapfile"
             sudo snap install $(cat ${HOME}/.config/snapfile | tr "\n" " ")
