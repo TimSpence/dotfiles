@@ -11,7 +11,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
-zf_compgen_path() {
+_fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"
 }
 
