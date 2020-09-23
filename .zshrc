@@ -2,6 +2,7 @@ if [ -f ~/.shell_aliases ]; then
   source ~/.shell_aliases
 fi
 
+export BAT_PAGER='less -RF'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # History control
