@@ -136,7 +136,7 @@ install_packages() {
         fi
         if [[ -f ${HOME}/.config/snapfile ]]; then
             echo "Installing snap packages from snapfile"
-            sudo snap install -y $(cat ${HOME}/.config/snapfile | tr "\n" " ")
+            sudo snap install $(cat ${HOME}/.config/snapfile | tr "\n" " ")
         fi
 
         # Install fpp
