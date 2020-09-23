@@ -130,13 +130,14 @@ install_packages() {
         echo "Installing default brew bundle"
         brew bundle --file=~/.config/yadm/brewfile
     elif is_linux; then
-        for pkg_manager in apt snap; do
-            if [[ -f ${HOME}/.config/${pkg_manager}file ]]; then
-                echo "Installing ${pkg_manager} packages from ${pkg_manager}file"
-                sudo ${pkg_manager} update \
-                    && sudo ${pkg_manager} install -y $(cat ${HOME}/.config/${pkg_manager}file | tr "\n" " ")
-            fi
-        done
+        if [[ -f ${HOME}/.config/aptfile ]]; then
+            echo "Installing apt packages from aptfile"
+            sudo apt update && sudo apt install -y $(cat ${HOME}/.config/aptfile | tr "\n" " ")
+        fi
+        if [[ -f ${HOME}/.config/snapfile ]]; then
+            echo "Installing snap packages from snapfile"
+            sudo snap install -y $(cat ${HOME}/.config/snapfile | tr "\n" " ")
+        fi
 
         # Install fpp
         if ! command -v fpp>/dev/null 2>&1; then
