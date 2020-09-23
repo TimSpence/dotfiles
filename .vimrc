@@ -27,6 +27,10 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
 
+  " Search
+  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
+
   " Make status bar easy on the eyes
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'

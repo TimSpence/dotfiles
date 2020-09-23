@@ -2,6 +2,8 @@ if [ -f ~/.shell_aliases ]; then
   source ~/.shell_aliases
 fi
 
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
 # History control
 HISTSIZE=10000
 SAVEHIST=10000
