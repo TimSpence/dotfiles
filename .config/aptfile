@@ -1,6 +1,6 @@
 bat
 fakeroot
-fzf
+fd-find
 htop
 neofetch
 net-tools

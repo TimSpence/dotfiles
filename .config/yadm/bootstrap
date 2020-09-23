@@ -122,6 +122,10 @@ EOF
 }
 
 install_packages() {
+    # Install fzf from source to avoid package differences
+    git clone --depth=1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+    ${HOME}/.fzf/install --all
+
     if is_osx; then
         if ! command -v brew > /dev/null 2>&1 ; then
             echo "Installing Homebrew.  Beer memes commencing..."
