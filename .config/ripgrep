@@ -1,0 +1,7 @@
+
+# skip Library and other dirs I don't want indexed
+--follow
+--glob=!/.git
+--glob=!/Library
+--hidden
+--smart-case

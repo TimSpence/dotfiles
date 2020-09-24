@@ -35,6 +35,8 @@ _fzf_compgen_dir() {
     fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep"
+
 # History control
 HISTSIZE=10000
 SAVEHIST=10000
