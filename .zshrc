@@ -4,7 +4,7 @@ fi
 
 export BAT_PAGER='less -RF'
 FZF_OS_X_EXCLUDE='--exclude Library'
-FD_OPTIONS="--follow --exclude .git ${FZF_OS_X_EXCLUDE}"
+FD_OPTIONS="--follow --hidden --exclude .git ${FZF_OS_X_EXCLUDE}"
 
 export FZF_DEFAULT_OPTS=" \
     --bind='ctrl-d:half-page-down' \
@@ -18,7 +18,7 @@ export FZF_DEFAULT_OPTS=" \
     --preview='bat --style=numbers --color=always {} 2>/dev/null | head -300' \
     --preview-window='right:wrap'
     "
-export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden ${FD_OPTIONS}"
+export FZF_DEFAULT_COMMAND="fd --type file ${FD_OPTIONS}"
 export FZF_CTRL_T_COMMAND="fd ${FD_OPTIONS}"
 export FZF_ALT_C_COMMAND="fd --type d ${FD_OPTIONS}"
 
