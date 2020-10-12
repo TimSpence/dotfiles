@@ -27,6 +27,9 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
 
+  " .tmux.conf
+  Plug 'tmux-plugins/vim-tmux'
+
   " Search
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
@@ -134,6 +137,9 @@ map <Leader>l :bnext<CR>
 " search config
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>O :Files!<CR>
+
+" Function keys
+map <f1> :Help<CR>
 
 " Automagically reload .vimrc
 " Disabled because it crashes on some terminals

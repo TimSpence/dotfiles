@@ -77,3 +77,5 @@ prompt pure
 zstyle :prompt:pure:path color cyan
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# TO DO: ensure PATH includes ~/.fzf/bin
