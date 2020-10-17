@@ -144,7 +144,7 @@ install_fonts() {
             )
         fi
     elif is_linux; then
-        sudo apt install fonts-powerline
+        sudo apt install -y fonts-powerline
     else
         echo "Don't know how to install fonts for this operating system"
     fi
