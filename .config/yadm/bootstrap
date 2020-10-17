@@ -55,15 +55,6 @@ usage() {
 EOF
 }
 
-configure_yadm() {
-    echo "Initializing submodules"
-    yadm submodule update --recursive
-
-    echo "Adding origin URL to git remote"
-    yadm remote set-url origin "https://github.com/TimSpence/dotfiles.git"
-    yadm remote set-url --push origin "git@github.com:TimSpence/dotfiles.git"
-}
-
 configure_vim_plugin_manager() {
     if command -v vim >/dev/null 2>&1; then
         echo "Bootstraping Vim"
@@ -125,11 +116,6 @@ install_packages() {
             command -v fd >/dev/null 2>&1 || sudo ln -s $(which fdfind) /usr/bin/fd
         fi
 
-        if [[ -f ${HOME}/.config/snapfile ]]; then
-            echo "Installing snap packages from snapfile"
-            sudo snap install $(cat ${HOME}/.config/snapfile | tr "\n" " ")
-        fi
-
         # Install fpp
         if ! command -v fpp>/dev/null 2>&1; then
             echo "Installing Facebook Path Picker"
@@ -141,13 +127,6 @@ install_packages() {
                 ./package.sh
                 find ../ -type f -name '*.deb' -print | xargs sudo dpkg --install
             )
-        fi
-
-        # Install ripgrep from deb due to issue in mirror
-        # https://bugs.launchpad.net/ubuntu/+source/rust-bat/+bug/1868517
-        if ! command -v rg>/dev/null 2>&1; then
-            curl -L -o /tmp/ripgrep.deb https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
-            sudo dpkg -i /tmp/ripgrep.deb && rm /tmp/ripgrep.deb
         fi
     else
         echo "Don't know how to install packages for this operating system"
@@ -195,7 +174,6 @@ do_it () {
 
 configure_minimum() {
     do_it truecolor_check "Verify terminal supports TrueColor"
-    do_it configure_yadm "Unlock the full power of YADM"
     do_it configure_vim_plugin_manager "Configure Vim plugin manager"
     do_it configure_tmux_plugin_manager "Configure tmux plugin manager"
     do_it install_packages "Install packages managed by Apt or Homebrew"
