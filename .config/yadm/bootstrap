@@ -55,16 +55,6 @@ usage() {
 EOF
 }
 
-set_shell() {
-    if command -v zsh >/dev/null 2>&1; then
-        current_shell="$SHELL"
-        if [[ ! "${current_shell}" =~ zsh ]]; then
-            echo "Switching shell to zsh"
-            chsh -s $(which zsh)
-        fi
-    fi
-}
-
 configure_yadm() {
     echo "Initializing submodules"
     yadm submodule update --recursive
@@ -74,24 +64,11 @@ configure_yadm() {
     yadm remote set-url --push origin "git@github.com:TimSpence/dotfiles.git"
 }
 
-configure_zsh_plugin_manager() {
-    if [[ ! -d ${HOME}/.zinit ]]; then
-        mkdir -p ${HOME}/.zinit
-        chmod 700 ${HOME}/.zinit
-        git clone --progress https://github.com/zdharma/zinit.git ${HOME}/.zinit/bin
-    fi
-}
-
 configure_vim_plugin_manager() {
     if command -v vim >/dev/null 2>&1; then
         echo "Bootstraping Vim"
         vim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
     fi
-}
-
-make_directories() {
-    [ -d ${HOME}/git-clones ] || mkdir -p ${HOME}/git-clones
-    [ -d ${HOME}/.ssh ] || mkdir -p ${HOME}/.ssh
 }
 
 configure_git() {
@@ -201,22 +178,6 @@ block_root() {
     fi
 }
 
-# miscellaneous tweaks
-misc () {
-    # Manage python differences between distros
-    if ! command -v python>/dev/null 2>&1; then
-        if command -v python3>/dev/null 2>&1; then
-            echo "Symlinking python to python3!"
-            sudo ln -s $(which python3) /usr/bin/python
-        elif command -v python2>/dev/null 2>&1; then
-            echo "Symlinking python to python2!"
-            sudo ln -s $(which python2) /usr/bin/python
-        else
-            echo "You should really install python"
-        fi
-    fi
-}
-
 configure_tmux_plugin_manager () {
     local plugin_dir=$HOME/.tmux/plugins
     if [ ! -d $plugin_dir ]; then
@@ -233,12 +194,8 @@ do_it () {
 }
 
 configure_minimum() {
-    do_it make_directories "Ensure critical directories exist"
-    do_it misc "Miscellaneous tweaks"
-    do_it set_shell "Set default shell to zsh"
     do_it truecolor_check "Verify terminal supports TrueColor"
     do_it configure_yadm "Unlock the full power of YADM"
-    do_it configure_zsh_plugin_manager "Configure ZSH plugin manager"
     do_it configure_vim_plugin_manager "Configure Vim plugin manager"
     do_it configure_tmux_plugin_manager "Configure tmux plugin manager"
     do_it install_packages "Install packages managed by Apt or Homebrew"
