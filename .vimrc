@@ -27,6 +27,9 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
 
+  " manage surrounding chars
+  Plug 'tpope/vim-surround'
+
   " .tmux.conf
   Plug 'tmux-plugins/vim-tmux'
 
