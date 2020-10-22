@@ -3,6 +3,9 @@ export EDITOR=vi
 export GIT_EDITOR="$EDITOR"
 export ZPLUG_HOME="$HOME/.zplug"
 
+if [ "$(uname -s)" = "Darwin" ]; then
+    export DISPLAY=:0
+fi
+
 # Consistent ownership
 umask 022
-

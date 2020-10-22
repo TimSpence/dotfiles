@@ -79,3 +79,8 @@ zstyle :prompt:pure:path color cyan
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # TO DO: ensure PATH includes ~/.fzf/bin
+if [ "$(uname -s)" = "Linux" ]; then
+    export PATH=$PATH:/snap/bin
+    export BROWSER=chromium
+    export XAUTHORITY=$HOME/.Xauthority
+fi
