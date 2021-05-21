@@ -84,3 +84,11 @@ if [ "$(uname -s)" = "Linux" ]; then
     export BROWSER=chromium
     export XAUTHORITY=$HOME/.Xauthority
 fi
+
+export PATH=$PATH:/Users/tim/Library/Python/3.9/bin
+
+autoload -Uz compinit
+compinit
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform

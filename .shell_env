@@ -1,6 +1,7 @@
 # Editor
 export EDITOR=vi
 export GIT_EDITOR="$EDITOR"
+export TERM=screen-256color
 export ZPLUG_HOME="$HOME/.zplug"
 
 if [ "$(uname -s)" = "Darwin" ]; then

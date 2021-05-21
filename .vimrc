@@ -27,6 +27,15 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
 
+  " git integration
+  Plug 'tpope/vim-fugitive'
+
+  " ansible syntax
+  Plug 'pearofducks/ansible-vim'
+
+  " terraform syntax
+  Plug 'hashivim/vim-terraform'
+
   " manage surrounding chars
   Plug 'tpope/vim-surround'
 
@@ -53,7 +62,9 @@ call plug#begin(vimplugdir)
   " popular color scheme
   Plug 'morhetz/gruvbox'
 
-  Plug 'preservim/nerdtree'
+  Plug 'trusktr/seti.vim'
+
+  Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " preserve location when reopening
   Plug 'farmergreg/vim-lastplace'
@@ -130,10 +141,31 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#formatter='unique_tail'
 let g:airline#extensions#tabline#show_buffers=1
 
+let g:ansible_goto_role_paths = './roles,../_common/roles'
+
+function! FindAnsibleRoleUnderCursor()
+    if exists("g:ansible_goto_role_paths")
+        let l:role_paths = g:ansible_goto_role_paths
+    else
+        let l:role_paths = "./roles"
+    endif
+    let l:tasks_main = expand("<cfile>") .  "/tasks/main.yml"
+    let l:found_role_path = findfile(l:tasks_main, l:role_paths)
+    if l:found_role_path == ""
+        echo l:tasks_main . " not found"
+    else
+        execute "edit " .  fnameescape(l:found_role_path)
+    endif
+endfunction
+
+au BufEnter,BufNewFile */*.yml nnoremap <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
+
 " start nerdtree open if no file specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <Leader>n :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
 map <Leader>h :bprevious<CR>
 map <Leader>l :bnext<CR>
 
