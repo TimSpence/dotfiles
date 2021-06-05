@@ -81,6 +81,9 @@ call plug#begin(vimplugdir)
   " control moOde audio
   Plug 'TimSpence/vim-moode'
 
+  " Persist sessions
+  Plug 'tpope/vim-obsession'
+
 call plug#end()
 
 set completefunc=emoji#complete
