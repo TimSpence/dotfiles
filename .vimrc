@@ -27,6 +27,8 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   Plug 'tpope/vim-sensible'
 
+  Plug 'chr4/nginx.vim'
+
   " git integration
   Plug 'tpope/vim-fugitive'
 
@@ -83,6 +85,9 @@ call plug#begin(vimplugdir)
 
   " Persist sessions
   Plug 'tpope/vim-obsession'
+
+  " Docker syntax
+  Plug 'ekalinin/Dockerfile.vim'
 
 call plug#end()
 
