@@ -86,6 +86,8 @@ if [ "$(uname -s)" = "Linux" ]; then
 fi
 
 export PATH=$PATH:/Users/tim/Library/Python/3.9/bin
+type rbenv >/dev/null 2>&1 && export PATH=~/.rbenv/shims:$PATH
+type pyenv >/dev/null 2>&1 && export PATH=~/.pyenv/shims:$PATH
 
 autoload -Uz compinit
 compinit
