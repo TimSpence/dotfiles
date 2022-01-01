@@ -89,6 +89,15 @@ call plug#begin(vimplugdir)
   " Docker syntax
   Plug 'ekalinin/Dockerfile.vim'
 
+  " Relative linenumbers
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+  " Jinja
+  Plug 'Glench/Vim-Jinja2-Syntax'
+
+  " Ctags preview
+  Plug 'preservim/tagbar'
+
 call plug#end()
 
 set completefunc=emoji#complete
