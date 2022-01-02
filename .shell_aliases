@@ -44,4 +44,6 @@ if command -v htop >/dev/null 2>&1; then
 fi
 
 alias https='http --default-scheme=https'
-alias vv='vim $(fzf)'
+alias vi='/usr/local/bin/nvim'
+alias vim='/usr/local/bin/nvim'
+alias vv='/usr/local/bin/nvim $(fzf)'
