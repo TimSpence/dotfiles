@@ -31,85 +31,54 @@ set writebackup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load plugins
 "
-"
-"
-"
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin(vimplugdir)
+  "
   " sensible vim defaults
+  "
   Plug 'tpope/vim-sensible'
+  Plug 'farmergreg/vim-lastplace'
 
+  "
+  " syntax, formatting, etc...
+  "
   Plug 'chr4/nginx.vim'
-
-  " git integration
-  Plug 'tpope/vim-fugitive'
-
-  " ansible syntax
   Plug 'pearofducks/ansible-vim'
-
-  " terraform syntax
   Plug 'hashivim/vim-terraform'
-
-  " manage surrounding chars
-  Plug 'tpope/vim-surround'
-
-  " .tmux.conf
+  Plug 'ekalinin/Dockerfile.vim'
+  Plug 'Glench/Vim-Jinja2-Syntax'
+  Plug 'tibabit/vim-templates'
+  Plug 'junegunn/vim-emoji'
   Plug 'tmux-plugins/vim-tmux'
+
+  "
+  " command automation, etc...
+  "
+  Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-fugitive'
+  Plug 'PratikBhusal/vim-grip'
+  Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'preservim/tagbar'
 
   " Search
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
 
-  " Make status bar easy on the eyes
+  "
+  " Appearance, colors, etc...
+  "
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'flazz/vim-colorschemes'
+  Plug 'kyoz/purify', { 'rtp': 'vim' }
+  Plug 'morhetz/gruvbox'
 
   " Aesthetic writing experience
   Plug 'junegunn/goyo.vim'
 
-  " color schemes
-  Plug 'flazz/vim-colorschemes'
-
-  " nice colors, a little buggy though
-  Plug 'kyoz/purify', { 'rtp': 'vim' }
-
-  " popular color scheme
-  Plug 'morhetz/gruvbox'
-
   Plug 'trusktr/seti.vim'
-
-  Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
-
-  " preserve location when reopening
-  Plug 'farmergreg/vim-lastplace'
-
-  " preview markdown in browser
-  Plug 'PratikBhusal/vim-grip'
-
-  " what is even life without emoji
-  Plug 'junegunn/vim-emoji'
-
-  " initialize files from templates
-  Plug 'tibabit/vim-templates'
-
-  " control moOde audio
-  Plug 'TimSpence/vim-moode'
-
-  " Persist sessions
-  Plug 'tpope/vim-obsession'
-
-  " Docker syntax
-  Plug 'ekalinin/Dockerfile.vim'
-
-  " Relative linenumbers
-  Plug 'jeffkreeftmeijer/vim-numbertoggle'
-
-  " Jinja
-  Plug 'Glench/Vim-Jinja2-Syntax'
-
-  " Ctags preview
-  Plug 'preservim/tagbar'
-
 call plug#end()
 
 set completefunc=emoji#complete
