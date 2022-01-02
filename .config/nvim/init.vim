@@ -81,56 +81,20 @@ call plug#begin(vimplugdir)
   Plug 'trusktr/seti.vim'
 call plug#end()
 
-set completefunc=emoji#complete
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure NerdTree
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" start nerdtree open if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeShowHidden=1
 
-" editor settings
-set list                           " mark unprintable characters in insert mode
-set number                         " number lines
-set cursorline                     " it's nice
-
-" format settings
-set nowrap                         " disable auto wrap of long lines
-set expandtab                      " if saved, expands tabs to spaces
-set tabstop=4
-set shiftwidth=4                   " use 4 spaces for auto indenting
-set shiftround
-
-" backup/undo/history
-"    " color support
-"    if (has("termguicolors"))
-    "    set termguicolors
-"    endif
-"    set t_Co=256
-
-" colorscheme styling
-set background=dark
-let g:gruvbox_bold=1
-let g:gruvbox_italic=0
-let g:gruvbox_contrast_light='medium'
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_improved_strings=0
-
-try
-    colorscheme gruvbox
-catch
-    colorscheme desert
-endtry
-
-" use a better leader key
-let mapleader=" "
-
-" Use airline instead of powerline
-let g:airline_theme='gruvbox'
-let g:airline_powerline_fonts=1
-if !exists("g:airline_symbols")
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-" let g:airline_extensions=['tabline']           " uncomment to only load specific extensions
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#formatter='unique_tail'
-let g:airline#extensions#tabline#show_buffers=1
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ansible role navigation
+"  TO DO: delete this. Use tags instead
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ansible_goto_role_paths = './roles,../_common/roles'
 
 function! FindAnsibleRoleUnderCursor()
@@ -150,28 +114,81 @@ endfunction
 
 au BufEnter,BufNewFile */*.yml nnoremap <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
 
-" start nerdtree open if no file specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key bindings
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader=" "
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>t :TagbarToggle<CR>
-let NERDTreeShowHidden=1
-
 map <Leader>h :bprevious<CR>
 map <Leader>l :bnext<CR>
-
-" search config
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>O :Files!<CR>
-
-" Function keys
 map <f1> :Help<CR>
+map <f8> :TagbarToggle<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" editor settings
+" TO DO:
+"  test these in neovim as they may be automatically set or
+"  possibly set by one of the plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set list                           " mark unprintable characters in insert mode
+set number                         " number lines
+set cursorline                     " it's nice
+set nowrap                         " disable auto wrap of long lines
+set expandtab                      " if saved, expands tabs to spaces
+set tabstop=4
+set shiftwidth=4                   " use 4 spaces for auto indenting
+set shiftround
+set background=dark
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorschemes, themes
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TO DO:
+" this was broken in vim, so test it in neovim
+"" color support
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
+"set t_Co=256
+
+let g:gruvbox_bold=1
+let g:gruvbox_italic=0
+let g:gruvbox_contrast_light='medium'
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_improved_strings=0
+try
+    colorscheme gruvbox
+catch
+    colorscheme desert
+endtry
+
+let g:airline_theme='gruvbox'
+let g:airline_powerline_fonts=1
+if !exists("g:airline_symbols")
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+" let g:airline_extensions=['tabline']           " uncomment to only load specific extensions
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline#extensions#tabline#show_buffers=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" misc
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set completefunc=emoji#complete
+
+" TO DO:
+" test this in neovim
 " Automagically reload .vimrc
 " Disabled because it crashes on some terminals
 " autocmd bufwritepost .vimrc source $MYVIMRC
 
-" load machine-specific config last
 if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
