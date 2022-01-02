@@ -1,5 +1,8 @@
-" directory management
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Manage temp directories.  Download and install Plugged if not
+" already installed.
 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let vimplugdir='~/.config/nvim/plugged'
 let vimautoloaddir='~/.config/nvim/autoload'
 
@@ -13,15 +16,24 @@ if empty(glob(vimplugdir))
   execute 'silent !mkdir -p ' . vimplugdir
 endif
 
-" centralized temp directories
 if empty(glob('~/.config/nvim/tmp/swap'))
   silent !mkdir -p ~/.config/nvim/tmp/swap ~/.config/nvim/tmp/backup ~/.config/nvim/tmp/undo
 endif
 
-" apply these settings before loading sensible defaults
-set nocompatible
-filetype off
-filetype plugin indent off
+set undolevels=100
+set undodir=~/.config/nvim/tmp/undo/
+set undofile
+set directory=~/.config/nvim/tmp/swap/
+set backupdir=~/.config/nvim/tmp/backup/
+set backup
+set writebackup
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load plugins
+"
+"
+"
+"
 
 call plug#begin(vimplugdir)
   " sensible vim defaults
@@ -115,14 +127,6 @@ set shiftwidth=4                   " use 4 spaces for auto indenting
 set shiftround
 
 " backup/undo/history
-set undolevels=100                 " undo last 100
-set undodir=~/.config/nvim/tmp/undo/
-set undofile
-set directory=~/.config/nvim/tmp/swap/     " swap directory
-set backupdir=~/.config/nvim/tmp/backup/
-set backup
-set writebackup
-
 "    " color support
 "    if (has("termguicolors"))
     "    set termguicolors
