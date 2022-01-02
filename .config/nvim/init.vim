@@ -173,11 +173,8 @@ let g:airline#extensions#tabline#show_buffers=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set completefunc=emoji#complete
 
-" TO DO:
-" test this in neovim
-" Automagically reload .vimrc
-" Disabled because it crashes on some terminals
-" autocmd bufwritepost .vimrc source $MYVIMRC
+" automatically reload on any config change
+au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
 
 if filereadable(glob("~/.config/nvim/init.vim.local"))
     source ~/.config/nvim/init.vim.local
