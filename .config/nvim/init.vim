@@ -179,6 +179,6 @@ set completefunc=emoji#complete
 " Disabled because it crashes on some terminals
 " autocmd bufwritepost .vimrc source $MYVIMRC
 
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
+if filereadable(glob("~/.config/nvim/init.vim.local"))
+    source ~/.config/nvim/init.vim.local
 endif
