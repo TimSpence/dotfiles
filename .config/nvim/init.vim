@@ -16,17 +16,9 @@ if empty(glob(vimplugdir))
   execute 'silent !mkdir -p ' . vimplugdir
 endif
 
-if empty(glob('~/.config/nvim/tmp/swap'))
-  silent !mkdir -p ~/.config/nvim/tmp/swap ~/.config/nvim/tmp/backup ~/.config/nvim/tmp/undo
-endif
-
 set undolevels=100
-set undodir=~/.config/nvim/tmp/undo/
 set undofile
-set directory=~/.config/nvim/tmp/swap/
-set backupdir=~/.config/nvim/tmp/backup/
 set backup
-set writebackup
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load plugins
@@ -129,19 +121,17 @@ map <f8> :TagbarToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " editor settings
-" TO DO:
-"  test these in neovim as they may be automatically set or
-"  possibly set by one of the plugins
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set list                           " mark unprintable characters in insert mode
 set number                         " number lines
 set cursorline                     " it's nice
 set nowrap                         " disable auto wrap of long lines
+" TO DO: try out smarttab and smart indent
 set expandtab                      " if saved, expands tabs to spaces
 set tabstop=4
 set shiftwidth=4                   " use 4 spaces for auto indenting
 set shiftround
-set background=dark
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorschemes, themes
