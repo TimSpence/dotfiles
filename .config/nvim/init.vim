@@ -52,6 +52,7 @@ call plug#begin(vimplugdir)
   Plug 'PratikBhusal/vim-grip'
   Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'preservim/tagbar'
+  Plug 'ludovicchabant/vim-gutentags'
 
   " Search
   Plug 'junegunn/fzf'
@@ -67,9 +68,10 @@ call plug#begin(vimplugdir)
   Plug 'kyoz/purify', { 'rtp': 'vim' }
   Plug 'morhetz/gruvbox'
 
-  " Aesthetic writing experience
+  "
+  " Misc
+  "
   Plug 'junegunn/goyo.vim'
-
   Plug 'trusktr/seti.vim'
 call plug#end()
 
