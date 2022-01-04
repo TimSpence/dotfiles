@@ -29,6 +29,7 @@ call plug#begin(vimplugdir)
   " sensible vim defaults
   "
   Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-sleuth'
   Plug 'farmergreg/vim-lastplace'
 
   "
