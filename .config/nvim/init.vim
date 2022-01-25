@@ -18,7 +18,10 @@ endif
 
 set undolevels=100
 set undofile
+let undodir='~/.local/share/nvim/undo//'
 set backup
+let backupdir='~/.local/share/nvim/backup//'
+let directory='~/.local/share/nvim/swap//'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load plugins
@@ -74,6 +77,7 @@ call plug#begin(vimplugdir)
   "
   Plug 'junegunn/goyo.vim'
   Plug 'trusktr/seti.vim'
+  Plug 'folke/which-key.nvim'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -116,6 +120,7 @@ map <Leader>h :bprevious<CR>
 map <Leader>l :bnext<CR>
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>O :Files!<CR>
+nnoremap <silent> <leader>t :Tags<CR>
 map <f1> :Help<CR>
 map <f8> :TagbarToggle<CR>
 
@@ -132,6 +137,7 @@ set expandtab                      " if saved, expands tabs to spaces
 set tabstop=4
 set shiftwidth=4                   " use 4 spaces for auto indenting
 set shiftround
+set timeoutlen=300                 " delay for which-key popup
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorschemes, themes
@@ -139,11 +145,11 @@ set shiftround
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TO DO:
 " this was broken in vim, so test it in neovim
-"" color support
-"if (has("termguicolors"))
-"  set termguicolors
-"endif
-"set t_Co=256
+" color support
+if (has("termguicolors"))
+  set termguicolors
+endif
+set t_Co=256
 
 let g:gruvbox_bold=1
 let g:gruvbox_italic=0
