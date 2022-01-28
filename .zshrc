@@ -52,8 +52,8 @@ source ~/.zinit/bin/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh' ver'3d379f1138af82f41a0a31c12428dd449bafed9c'
-zinit light TimSpence/pure
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
 
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
@@ -71,7 +71,7 @@ test -r $d && eval "$(dircolors $d)"
 [[ -n $LS_COLORS ]] && unset LS_COLORS
 
 # Pure prompt
-fpath+=$HOME/.zinit/plugins/TimSpence---pure
+fpath+=$HOME/.zinit/plugins/sindresorhus---pure
 autoload -U promptinit; promptinit
 prompt pure
 # change defaults
