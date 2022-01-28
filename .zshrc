@@ -86,7 +86,6 @@ if [ "$(uname -s)" = "Linux" ]; then
     export XAUTHORITY=$HOME/.Xauthority
 fi
 
-export PATH=$PATH:/Users/tim/Library/Python/3.9/bin
 type rbenv >/dev/null 2>&1 && export PATH=~/.rbenv/shims:$PATH
 type pyenv >/dev/null 2>&1 && export PATH=~/.pyenv/shims:$PATH
 
