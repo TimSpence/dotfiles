@@ -66,8 +66,9 @@ zinit light zsh-users/zsh-syntax-highlighting
 if ! command -v dircolors >/dev/null 2>&1; then
  alias dircolors='gdircolors'
 fi
-zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
-zinit light trapd00r/LS_COLORS
+d=.dircolors
+test -r $d && eval "$(dircolors $d)"
+[[ -n $LS_COLORS ]] && unset LS_COLORS
 
 # Pure prompt
 fpath+=$HOME/.zinit/plugins/TimSpence---pure
@@ -94,3 +95,4 @@ compinit
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+complete -C '/usr/local/bin/aws_completer' aws
