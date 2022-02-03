@@ -114,7 +114,7 @@ au BufEnter,BufNewFile */*.yml nnoremap <leader>gr :call FindAnsibleRoleUnderCur
 " Key bindings
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=" "
+let g:mapleader = "\<Space>"
 nnoremap <Leader>n :NERDTreeToggle<CR>
 map <Leader>h :bprevious<CR>
 map <Leader>l :bnext<CR>
@@ -137,7 +137,7 @@ set expandtab                      " if saved, expands tabs to spaces
 set tabstop=4
 set shiftwidth=4                   " use 4 spaces for auto indenting
 set shiftround
-set timeoutlen=300                 " delay for which-key popup
+set timeoutlen=500                 " delay for which-key popup
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorschemes, themes
