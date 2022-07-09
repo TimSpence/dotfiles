@@ -48,7 +48,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # zinit
-source ~/.zinit/bin/zinit.zsh
+source /usr/local/opt/zinit/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -61,14 +61,12 @@ zinit light zsh-users/zsh-completions
 zinit light zlsun/solarized-man
 
 zinit light zsh-users/zsh-history-substring-search
-zinit light zsh-users/zsh-syntax-highlighting
 
 if ! command -v dircolors >/dev/null 2>&1; then
- alias dircolors='gdircolors'
+  alias dircolors='gdircolors'
 fi
-d=.dircolors
-test -r $d && eval "$(dircolors $d)"
-[[ -n $LS_COLORS ]] && unset LS_COLORS
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+zinit light trapd00r/LS_COLORS
 
 # Pure prompt
 fpath+=$HOME/.zinit/plugins/sindresorhus---pure
@@ -76,15 +74,6 @@ autoload -U promptinit; promptinit
 prompt pure
 # change defaults
 zstyle :prompt:pure:path color cyan
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# TO DO: ensure PATH includes ~/.fzf/bin
-if [ "$(uname -s)" = "Linux" ]; then
-    export PATH=$PATH:/snap/bin
-    export BROWSER=chromium
-    export XAUTHORITY=$HOME/.Xauthority
-fi
 
 type rbenv >/dev/null 2>&1 && export PATH=~/.rbenv/shims:$PATH
 type pyenv >/dev/null 2>&1 && export PATH=~/.pyenv/shims:$PATH
@@ -95,3 +84,7 @@ compinit
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 complete -C '/usr/local/bin/aws_completer' aws
+
+zinit light zsh-users/zsh-syntax-highlighting
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
