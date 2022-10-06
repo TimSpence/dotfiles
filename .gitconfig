@@ -8,3 +8,16 @@
 [user]
 	name = TimSpence
 	email = yogi.wan.kenobi@gmail.com
+[core]
+	editor = nvim
+	whitespace = true
+[init]
+	defaultBranch = main
+[merge]
+	conflictstyle = diff3
+[difftool]
+	prompt = false
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
