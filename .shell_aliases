@@ -47,3 +47,5 @@ alias https='http --default-scheme=https'
 alias vi='/usr/local/bin/nvim'
 alias vim='/usr/local/bin/nvim'
 alias vv='/usr/local/bin/nvim $(fzf)'
+
+alias docker-compose='docker compose'
