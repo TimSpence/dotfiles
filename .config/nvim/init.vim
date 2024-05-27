@@ -70,7 +70,7 @@ call plug#begin(vimplugdir)
   Plug 'vim-airline/vim-airline-themes'
   Plug 'flazz/vim-colorschemes'
   Plug 'kyoz/purify', { 'rtp': 'vim' }
-  Plug 'morhetz/gruvbox'
+  Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
   "
   " Misc
@@ -146,23 +146,12 @@ set timeoutlen=300                 " delay for which-key popup
 " TO DO:
 " this was broken in vim, so test it in neovim
 " color support
-if (has("termguicolors"))
-  set termguicolors
-endif
+set termguicolors
 set t_Co=256
 
-let g:gruvbox_bold=1
-let g:gruvbox_italic=0
-let g:gruvbox_contrast_light='medium'
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_improved_strings=0
-try
-    colorscheme gruvbox
-catch
-    colorscheme desert
-endtry
+colorscheme catppuccin-mocha
 
-let g:airline_theme='gruvbox'
+let g:airline_theme='catppuccin'
 let g:airline_powerline_fonts=1
 if !exists("g:airline_symbols")
   let g:airline_symbols = {}

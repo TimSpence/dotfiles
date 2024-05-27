@@ -5,9 +5,6 @@
 [alias]
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(auto)%d %<|(88,mtrunc)%s %C(bold blue)%an %<(13,trunc)%C(bold black)%cr%Creset'
 	lga = log --graph --pretty=format:'%Cred%h%Creset%C(auto)%d %<|(88,mtrunc)%s %C(bold blue)%an %<(13,trunc)%C(bold black)%cr%Creset' --all
-[user]
-	name = TimSpence
-	email = yogi.wan.kenobi@gmail.com
 [core]
 	editor = nvim
 	whitespace = true
@@ -27,8 +24,8 @@
 [interactive]
 	diffFilter = delta --color-only
 [include]
-	path = git-clones/dandavison/delta/themes.gitconfig
+	path = git-clones/Anomalocaridid/delta/themes.gitconfig
 [delta]
 	navigate = true    # use n and N to move between diff sections
-	features = gruvmax-fang
+	features = catppuccin-mocha
 	side-by-side = true
