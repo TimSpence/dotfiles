@@ -3,6 +3,7 @@
 --exclude=BUILD
 --exclude=.svn
 --exclude=*.js
+--exclude=libs/vendor/*
 --exclude=vendor/*
 --exclude=node_modules/*
 --exclude=db/*
