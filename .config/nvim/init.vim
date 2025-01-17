@@ -16,6 +16,8 @@ if empty(glob(vimplugdir))
   execute 'silent !mkdir -p ' . vimplugdir
 endif
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 set undolevels=100
 set undofile
 let undodir='~/.local/share/nvim/undo//'
