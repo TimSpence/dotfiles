@@ -83,6 +83,8 @@ type pyenv >/dev/null 2>&1 && export PATH=~/.pyenv/shims:$PATH
 autoload -Uz compinit
 compinit
 
+source <(kubectl completion zsh)
+
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 complete -C '/usr/local/bin/aws_completer' aws
@@ -90,3 +92,4 @@ complete -C '/usr/local/bin/aws_completer' aws
 zinit light zsh-users/zsh-syntax-highlighting
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(inv --print-completion-script zsh)
