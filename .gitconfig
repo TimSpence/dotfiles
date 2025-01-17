@@ -9,6 +9,7 @@
 	editor = nvim
 	whitespace = true
 	pager = delta
+	excludesFile = /Users/tim/.gitignore
 [init]
 	defaultBranch = main
 [merge]
