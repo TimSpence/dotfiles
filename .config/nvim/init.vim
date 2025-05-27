@@ -80,6 +80,14 @@ call plug#begin(vimplugdir)
   Plug 'junegunn/goyo.vim'
   Plug 'trusktr/seti.vim'
   Plug 'folke/which-key.nvim'
+
+  " Debugging
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'mfussenegger/nvim-dap'
+  Plug 'leoluz/nvim-dap-go'
+  Plug 'nvim-neotest/nvim-nio'
+  Plug 'rcarriga/nvim-dap-ui'
+  Plug 'theHamsta/nvim-dap-virtual-text'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -176,3 +184,5 @@ au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
 if filereadable(glob("~/.config/nvim/init.vim.local"))
     source ~/.config/nvim/init.vim.local
 endif
+
+source ~/.config/nvim/lua/debuggers.lua
