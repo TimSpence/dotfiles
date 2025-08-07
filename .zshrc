@@ -50,7 +50,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 # zinit
-source /usr/local/opt/zinit/zinit.zsh
+source ~/.local/share/zinit/zinit.git/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -90,3 +90,4 @@ complete -C '/usr/local/bin/aws_completer' aws
 zinit light zsh-users/zsh-syntax-highlighting
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+### End of Zinit's installer chunk
